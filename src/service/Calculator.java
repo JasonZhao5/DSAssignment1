@@ -23,7 +23,15 @@ public interface Calculator extends Remote {
 
     /**
      * Push a String containing an operator ("min", "max", "lcm", "gcd") to the stack,
-     * which will cause the server to pop all the values on the stack
+     * which will cause the server to pop all the values on the stack and:
+     * <p>
+     * for min - push the min value of all the popped values;
+     * <p>
+     * for max - push the max value of all the popped values;
+     * <p>
+     * for lcm - push the least common multiple of all the popped values;
+     * <p>
+     * for gcd - push the greatest common divisor of all the popped values.
      *
      * @param operator operator
      */
@@ -57,4 +65,6 @@ public interface Calculator extends Remote {
      *
      * @return hostname of the client
      */
+
+    String getHostName() throws RemoteException;
 }

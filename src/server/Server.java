@@ -12,7 +12,7 @@ import java.util.Stack;
 
 public class Server {
 
-    private final HashMap<String, Stack<Integer>> stackMap = new HashMap<String, Stack<Integer>>();
+    private final HashMap<String, Stack<Integer>> stackMap = new HashMap<>();
 
     public static void main(String[] args) {
 
@@ -25,9 +25,8 @@ public class Server {
             Calculator stub = (Calculator) UnicastRemoteObject.exportObject(calculator, 0);
 
             Server server = new Server();
-//            String clientHost = stub.getHostName();
-            String clientHost = "";
             Stack<Integer> stack = stub.getStack();
+            String clientHost = stub.getHostName();
             server.stackMap.computeIfAbsent(clientHost, v -> stack);
 
             // Bind the remote object's stub in the registry
