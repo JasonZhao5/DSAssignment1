@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
-import static java.lang.Thread.sleep;
 import static util.GCDUtil.gcd;
 
 public class CalculatorImpl implements Calculator {
@@ -36,7 +35,6 @@ public class CalculatorImpl implements Calculator {
         if (stack.isEmpty()) {
             throw new RuntimeException("The stack is empty.");
         }
-        int result;
         Operation operation = Operation.valueOf(operator);
         switch (operation) {
             case Operation.min -> {
