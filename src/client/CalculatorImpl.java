@@ -7,7 +7,6 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-import client.GCDUtil;
 
 public class CalculatorImpl implements Calculator {
     private final ConcurrentHashMap<String, Stack<Integer>> stackMap = new ConcurrentHashMap<>();
