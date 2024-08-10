@@ -1,5 +1,8 @@
 package client;
 
+import service.Calculator;
+import util.CommandLineInterface;
+
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;

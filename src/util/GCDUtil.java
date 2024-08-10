@@ -1,4 +1,4 @@
-package client;
+package util;
 
 public class GCDUtil {
     public static int gcd(int a, int b) {
