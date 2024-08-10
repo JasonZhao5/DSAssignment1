@@ -7,7 +7,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-import static client.GCDUtil.gcd;
+import client.GCDUtil;
 
 public class CalculatorImpl implements Calculator {
     private final ConcurrentHashMap<String, Stack<Integer>> stackMap = new ConcurrentHashMap<>();
@@ -46,7 +46,7 @@ public class CalculatorImpl implements Calculator {
             case Operation.gcd:
                 int gcd = stack.pop();
                 while (!stack.isEmpty()) {
-                    gcd = gcd(gcd, stack.pop());
+                    gcd = GCDUtil.gcd(gcd, stack.pop());
                 }
                 stack.push(gcd);
                 break;
