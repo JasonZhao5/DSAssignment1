@@ -1,7 +1,4 @@
-package server;
-
-import Factory.impl.RemoteCalculatorFactory;
-import client.Calculator;
+package client;
 
 import java.rmi.Remote;
 import java.rmi.registry.Registry;
@@ -26,9 +23,9 @@ public class Server {
             Registry registry = LocateRegistry.getRegistry();
             registry.bind("Calculator", stub);
 
-            System.err.println("server.Server ready");
+            System.err.println("client.Server ready");
         } catch (Exception e) {
-            System.err.println("server.Server exception: " + e);
+            System.err.println("client.Server exception: " + e);
             e.printStackTrace();
         }
     }

@@ -1,4 +1,4 @@
-package Factory;
+package client;
 
 import java.rmi.Remote;
 

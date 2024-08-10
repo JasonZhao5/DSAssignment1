@@ -33,31 +33,33 @@ public class CalculatorImpl implements Calculator {
         }
         Operation operation = Operation.valueOf(operator);
         switch (operation) {
-            case Operation.min -> {
+            case Operation.min:
                 Integer min = stack.stream().min(Integer::compareTo).get();
                 stack.clear();
                 stack.push(min);
-            }
-            case Operation.max -> {
+                break;
+            case Operation.max:
                 Integer max = stack.stream().max(Integer::compareTo).get();
                 stack.clear();
                 stack.push(max);
-            }
-            case Operation.gcd -> {
+                break;
+            case Operation.gcd:
                 int gcd = stack.pop();
                 while (!stack.isEmpty()) {
                     gcd = gcd(gcd, stack.pop());
                 }
                 stack.push(gcd);
-            }
-            case Operation.lcm -> {
+                break;
+            case Operation.lcm:
                 Map<Integer, Long> map = stack.stream().collect(Collectors.groupingBy(e -> e, Collectors.counting()));
                 Map.Entry<Integer, Long> entry = map.entrySet().stream().max(Map.Entry.comparingByValue()).get();
                 stack.clear();
                 stack.push(entry.getKey());
-            }
-            default -> throw new IllegalStateException("Unexpected value: " + operation);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + operation);
         }
+
 
     }
 
