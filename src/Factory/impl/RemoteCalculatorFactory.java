@@ -1,8 +1,8 @@
 package Factory.impl;
 
 import Factory.RemoteFactory;
-import po.Calculator;
-import po.CalculatorImpl;
+import client.Calculator;
+import client.CalculatorImpl;
 
 import java.rmi.Remote;
 

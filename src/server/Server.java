@@ -1,7 +1,7 @@
 package server;
 
 import Factory.impl.RemoteCalculatorFactory;
-import po.Calculator;
+import client.Calculator;
 
 import java.rmi.Remote;
 import java.rmi.registry.Registry;

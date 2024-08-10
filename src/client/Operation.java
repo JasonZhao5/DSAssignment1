@@ -1,4 +1,4 @@
-package po;
+package client;
 
 public enum Operation {
     /**

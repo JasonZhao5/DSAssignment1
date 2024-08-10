@@ -1,4 +1,4 @@
-package po;
+package client;
 
 public class GCDUtil {
     public static int gcd(int a, int b) {
