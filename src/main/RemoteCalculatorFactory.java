@@ -1,8 +1,4 @@
-package Factory.impl;
-
-import Factory.RemoteFactory;
-import service.Calculator;
-import service.impl.CalculatorImpl;
+package main;
 
 import java.rmi.Remote;
 

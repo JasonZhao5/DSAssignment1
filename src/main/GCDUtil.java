@@ -1,4 +1,4 @@
-package util;
+package main;
 
 public class GCDUtil {
     public static int gcd(int a, int b) {
