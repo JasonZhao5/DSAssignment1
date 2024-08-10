@@ -1,19 +1,16 @@
 # 定义变量
-SRC_DIR := src
-CLASSES_DIR := classes
-JAR_NAME := client.jar
+JAVAC = javac
+SRC_DIR = src
+TEST_DIR = test
+BIN_DIR = bin
 
-# 编译规则
-$(CLASSES_DIR)/%.class: $(SRC_DIR)/%.java
-    javac -d $(CLASSES_DIR) $<
+# 定义目标
+all: compile
 
-# 打包规则
-$(JAR_NAME): $(CLASSES_DIR)/client/*.class
-    jar cvf $(JAR_NAME) $(CLASSES_DIR)/client/*.class
+# 编译源文件
+compile:
+	$(JAVAC) -d $(BIN_DIR) $(SRC_DIR)/client/*.java $(TEST_DIR)/*.java
 
-# 默认目标
-all: $(JAR_NAME)
-
-# 清除目标
+# 清理生成的文件
 clean:
-    rm -rf $(CLASSES_DIR) $(JAR_NAME)
+	rm -rf $(BIN_DIR)/*.class
