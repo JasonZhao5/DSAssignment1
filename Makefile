@@ -1,40 +1,19 @@
-# Define the Java compiler
-JAVAC = javac
+# 定义变量
+SRC_DIR := src
+CLASSES_DIR := classes
+JAR_NAME := client.jar
 
-# Define the Java runtime
-JAVA = java
+# 编译规则
+$(CLASSES_DIR)/%.class: $(SRC_DIR)/%.java
+    javac -d $(CLASSES_DIR) $<
 
-# Define the source file directory
-SRC_DIR = src
+# 打包规则
+$(JAR_NAME): $(CLASSES_DIR)/client/*.class
+    jar cvf $(JAR_NAME) $(CLASSES_DIR)/client/*.class
 
-# Define the class file directory
-BIN_DIR = bin
+# 默认目标
+all: $(JAR_NAME)
 
-# Define the source files
-SRCS = $(wildcard $(SRC_DIR)/**/*.java)
-
-# Define the class files
-CLASSES = $(SRCS:$(SRC_DIR)/%.java=$(BIN_DIR)/%.class)
-
-# Default target
-all: $(CLASSES)
-
-# Compile Java source files
-$(BIN_DIR)/%.class: $(SRC_DIR)/%.java
-	@mkdir -p $(dir $@)
-	$(JAVAC) -d $(BIN_DIR) $<
-
-# Run the Server program
-run-server: all
-	$(JAVA) -cp $(BIN_DIR) server.Server
-
-# Run the Client program
-run-client: all
-	$(JAVA) -cp $(BIN_DIR) client.Client
-
-# Clean up generated files
+# 清除目标
 clean:
-	rm -rf $(BIN_DIR)
-
-# Phony targets
-.PHONY: all run-server run-client clean
+    rm -rf $(CLASSES_DIR) $(JAR_NAME)
