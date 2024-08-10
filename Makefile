@@ -24,8 +24,12 @@ $(BIN_DIR)/%.class: $(SRC_DIR)/%.java
 	@mkdir -p $(dir $@)
 	$(JAVAC) -d $(BIN_DIR) $<
 
-# Run the Java program
-run: all
+# Run the Server program
+run-server: all
+	$(JAVA) -cp $(BIN_DIR) server.Server
+
+# Run the Client program
+run-client: all
 	$(JAVA) -cp $(BIN_DIR) client.Client
 
 # Clean up generated files
@@ -33,4 +37,4 @@ clean:
 	rm -rf $(BIN_DIR)
 
 # Phony targets
-.PHONY: all run clean
+.PHONY: all run-server run-client clean

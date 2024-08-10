@@ -1,7 +1,7 @@
 package client;
 
-import service.Calculator;
-import util.CommandLineInterface;
+import po.service.Calculator;
+import po.util.CommandLineInterface;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
