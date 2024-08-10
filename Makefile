@@ -26,7 +26,7 @@ $(BIN_DIR)/%.class: $(SRC_DIR)/%.java
 
 # Run the Java program
 run: all
-	$(JAVA) -cp $(BIN_DIR) Main
+	$(JAVA) -cp $(BIN_DIR) client.Client
 
 # Clean up generated files
 clean:

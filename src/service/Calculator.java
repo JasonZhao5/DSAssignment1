@@ -15,7 +15,7 @@ public interface Calculator extends Remote {
     void pushValue(int val) throws RemoteException;
 
     /**
-     * Method to get the stack of current Calculator
+     * Method to get the stack of current Calculator.
      *
      * @return stack of current Calculator
      */
@@ -65,6 +65,15 @@ public interface Calculator extends Remote {
      *
      * @return hostname of the client
      */
+    String getClientId() throws RemoteException;
 
-    String getHostName() throws RemoteException;
+    /**
+     * Initial a client ID for the client.
+     */
+    void initClientId() throws RemoteException;
+
+    /**
+     * Remove the Client ID.
+     */
+    void removeClientId() throws RemoteException;
 }

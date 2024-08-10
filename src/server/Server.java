@@ -9,10 +9,10 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
 import java.util.Stack;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Server {
 
-    private final HashMap<String, Stack<Integer>> stackMap = new HashMap<>();
 
     public static void main(String[] args) {
 
@@ -24,10 +24,6 @@ public class Server {
             Remote calculator = calculatorFactory.createProduct();
             Calculator stub = (Calculator) UnicastRemoteObject.exportObject(calculator, 0);
 
-            Server server = new Server();
-            Stack<Integer> stack = stub.getStack();
-            String clientHost = stub.getHostName();
-            server.stackMap.computeIfAbsent(clientHost, v -> stack);
 
             // Bind the remote object's stub in the registry
             Registry registry = LocateRegistry.getRegistry();
@@ -35,7 +31,7 @@ public class Server {
 
             System.err.println("server.Server ready");
         } catch (Exception e) {
-            System.err.println("server.Server exception: " + e.toString());
+            System.err.println("server.Server exception: " + e);
             e.printStackTrace();
         }
     }

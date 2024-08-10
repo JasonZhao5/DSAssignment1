@@ -2,6 +2,8 @@ package util;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
 /**
@@ -20,7 +22,9 @@ public class CommandLineInterface {
     public void setScanner(Object invoker, Class<?> clazz) {
 
         Method[] methods = clazz.getMethods();
+        Arrays.sort(methods, Comparator.comparing(Method::getName));
 
+        // generate the method options
         while (true) {
             System.out.println("Please select an option and enter the corresponding number to run it:");
             for (int i = 0; i < methods.length; i++) {
@@ -40,7 +44,7 @@ public class CommandLineInterface {
                 break;
             }
 
-            //invoke the method
+            // invoke the chosen method
             try {
                 Method method = methods[choice];
                 if (method.getParameterCount() != 0) {
@@ -48,9 +52,8 @@ public class CommandLineInterface {
                     Class<?> parameterType = method.getParameterTypes()[0];
                     if (parameterType.getName().equals("int")) {
                         System.out.println(method.invoke(invoker, scanner.nextInt()));
-                    } else if (parameterType.equals(String.class)){
+                    } else if (parameterType.equals(String.class)) {
                         System.out.println(method.invoke(invoker, scanner.next()));
-
                     }
                 } else {
                     System.out.println(method.invoke(invoker));
@@ -59,6 +62,11 @@ public class CommandLineInterface {
                 throw new RuntimeException(e);
             }
 
+            System.out.println("Input any key to continue.");
+            if (scanner.hasNext()) {
+                scanner.next();
+                continue;
+            }
 
         }
 

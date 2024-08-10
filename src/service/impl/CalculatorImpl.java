@@ -4,34 +4,33 @@ import po.Operation;
 import service.Calculator;
 
 import java.rmi.RemoteException;
-import java.rmi.server.RemoteServer;
-import java.rmi.server.ServerNotActiveException;
 import java.util.Map;
 import java.util.Stack;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import static util.GCDUtil.gcd;
 
 public class CalculatorImpl implements Calculator {
-    final private Stack<Integer> stack = new Stack<>();
-
+    private final ConcurrentHashMap<String, Stack<Integer>> stackMap = new ConcurrentHashMap<>();
+    ThreadLocal<String> clientId = ThreadLocal.withInitial(() -> UUID.randomUUID().toString());
     private String hostName;
 
 
     @Override
     public Stack<Integer> getStack() throws RemoteException {
-        initHostName();
-        return stack;
+        return stackMap.get(clientId.get());
     }
 
     @Override
     public void pushValue(int val) throws RemoteException {
-        initHostName();
-        stack.push(val);
+        stackMap.get(clientId.get()).push(val);
     }
 
     @Override
     public void pushOperation(String operator) throws RemoteException {
+        Stack<Integer> stack = stackMap.get(clientId.get());
         if (stack.isEmpty()) {
             throw new RuntimeException("The stack is empty.");
         }
@@ -63,46 +62,43 @@ public class CalculatorImpl implements Calculator {
             default -> throw new IllegalStateException("Unexpected value: " + operation);
         }
 
-        initHostName();
     }
 
     @Override
     public int pop() throws RemoteException {
-        initHostName();
+        Stack<Integer> stack = stackMap.get(clientId.get());
         if (stack.isEmpty()) {
             throw new RuntimeException("The stack is empty.");
-        } else
-            return stack.pop();
+        } else return stack.pop();
     }
 
     @Override
     public boolean isEmpty() throws RemoteException {
-        initHostName();
-        return stack.isEmpty();
+        return stackMap.get(clientId.get()).isEmpty();
     }
 
     @Override
     public int delayPop(int millis) throws InterruptedException, RemoteException {
-        initHostName();
         Thread.sleep(millis);
         System.out.println("delayPop: waited for " + millis + "ms");
-        return stack.pop();
+        return stackMap.get(clientId.get()).pop();
     }
 
     /**
      * Init hostname if absent.
      */
-    private void initHostName() {
-        if (hostName == null) {
-            try {
-                hostName = RemoteServer.getClientHost();
-            } catch (ServerNotActiveException e) {
-                throw new RuntimeException(e);
-            }
-        }
+    public void initClientId() throws RemoteException {
+        this.clientId.get();
+        stackMap.putIfAbsent(clientId.get(), new Stack<>());
     }
 
-    public String getHostName() {
-        return hostName;
+    @Override
+    public void removeClientId() throws RemoteException {
+        clientId.remove();
+    }
+
+    @Override
+    public String getClientId() throws RemoteException {
+        return clientId.get();
     }
 }
