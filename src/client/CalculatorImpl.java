@@ -32,24 +32,24 @@ public class CalculatorImpl implements Calculator {
         }
         Operation operation = Operation.valueOf(operator);
         switch (operation) {
-            case Operation.min:
+            case min:
                 Integer min = stack.stream().min(Integer::compareTo).get();
                 stack.clear();
                 stack.push(min);
                 break;
-            case Operation.max:
+            case max:
                 Integer max = stack.stream().max(Integer::compareTo).get();
                 stack.clear();
                 stack.push(max);
                 break;
-            case Operation.gcd:
+            case gcd:
                 int gcd = stack.pop();
                 while (!stack.isEmpty()) {
                     gcd = GCDUtil.gcd(gcd, stack.pop());
                 }
                 stack.push(gcd);
                 break;
-            case Operation.lcm:
+            case lcm:
                 Map<Integer, Long> map = stack.stream().collect(Collectors.groupingBy(e -> e, Collectors.counting()));
                 Map.Entry<Integer, Long> entry = map.entrySet().stream().max(Map.Entry.comparingByValue()).get();
                 stack.clear();
