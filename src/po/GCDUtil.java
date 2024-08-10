@@ -1,4 +1,4 @@
-package po.util;
+package po;
 
 public class GCDUtil {
     public static int gcd(int a, int b) {

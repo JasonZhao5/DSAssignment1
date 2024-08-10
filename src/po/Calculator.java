@@ -1,4 +1,4 @@
-package po.service;
+package po;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

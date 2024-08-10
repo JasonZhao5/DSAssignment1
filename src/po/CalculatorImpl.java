@@ -1,7 +1,4 @@
-package po.service.impl;
-
-import po.Operation;
-import po.service.Calculator;
+package po;
 
 import java.rmi.RemoteException;
 import java.util.Map;
@@ -10,7 +7,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-import static po.util.GCDUtil.gcd;
+import static po.GCDUtil.gcd;
 
 public class CalculatorImpl implements Calculator {
     private final ConcurrentHashMap<String, Stack<Integer>> stackMap = new ConcurrentHashMap<>();
