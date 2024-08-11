@@ -1,11 +1,10 @@
 package main;
 
 import java.rmi.RemoteException;
-import java.util.Map;
 import java.util.Stack;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
+
 
 
 public class CalculatorImpl implements Calculator {
@@ -45,15 +44,16 @@ public class CalculatorImpl implements Calculator {
             case gcd:
                 int gcd = stack.pop();
                 while (!stack.isEmpty()) {
-                    gcd = GCDUtil.gcd(gcd, stack.pop());
+                    gcd = CalculateUtil.gcd(gcd, stack.pop());
                 }
                 stack.push(gcd);
                 break;
             case lcm:
-                Map<Integer, Long> map = stack.stream().collect(Collectors.groupingBy(e -> e, Collectors.counting()));
-                Map.Entry<Integer, Long> entry = map.entrySet().stream().max(Map.Entry.comparingByValue()).get();
-                stack.clear();
-                stack.push(entry.getKey());
+                int lcm = stack.pop();
+                while (!stack.isEmpty()) {
+                    lcm = CalculateUtil.lcm(lcm, stack.pop());
+                }
+                stack.push(lcm);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + operation);
