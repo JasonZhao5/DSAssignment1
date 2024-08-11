@@ -15,6 +15,9 @@ public class CalculatorRMITest {
     private Registry registry;
     private Calculator calculator;
 
+    /**
+     * Preparation for tests.
+     */
     @Before
     public void setUp() throws Exception {
         // Start the RMI registry
@@ -35,6 +38,9 @@ public class CalculatorRMITest {
         UnicastRemoteObject.unexportObject(calculator, true);
     }
 
+    /**
+     * Test basic push, pop-up, and isEmpty functionality with single Client
+     */
     @Test
     public void testSingleClient() throws Exception {
         // Lookup the remote object
@@ -50,6 +56,9 @@ public class CalculatorRMITest {
         assertTrue(stub.isEmpty());
     }
 
+    /**
+     * Test basic push, pop-up, and isEmpty functionality with multiple Clients
+     */
     @Test
     public void testMultipleClients() throws Exception {
         // Lookup the remote object
@@ -89,6 +98,9 @@ public class CalculatorRMITest {
         client5.join();
     }
 
+    /**
+     * Test pushOperation functionality with single Client
+     */
     @Test
     public void testOperationsSingleClient() throws Exception {
         // Lookup the remote object
@@ -125,6 +137,9 @@ public class CalculatorRMITest {
         assertEquals(60, stub.pop());
     }
 
+    /**
+     * Test pushOperation functionality with multiple Clients
+     */
     @Test
     public void testOperationsMultipleClients() throws Exception {
         // Lookup the remote object
@@ -186,6 +201,9 @@ public class CalculatorRMITest {
         client5.join();
     }
 
+    /**
+     * Test delayPop functionality with single Client
+     */
     @Test
     public void testDelayPopSingleClient() throws Exception {
         // Lookup the remote object
@@ -201,6 +219,9 @@ public class CalculatorRMITest {
         assertTrue(stub.isEmpty());
     }
 
+    /**
+     * Test delayPop functionality with multiple Clients
+     */
     @Test
     public void testDelayPopMultipleClients() throws Exception {
         // Lookup the remote object
